@@ -42,39 +42,86 @@ def dashboard(request):
     train_data = pd.read_csv("zomato_cleaned.csv")
 
     tRestaurant = train_data.shape[0]
-
     average_rating = train_data['rate'].mean()
     average_rating = round(average_rating, 2)
-
     most_voted_restaurant = train_data.loc[train_data['votes'].idxmax()]['name']
-
     average_cost_for_two = train_data['cost2plates'].mean()
     average_cost_for_two = round(average_cost_for_two, 2)
-
     area_distribution = train_data['area'].value_counts()
-
     online_order_counts = train_data['online_order'].value_counts()
-
     table_booking_counts = train_data['book_table'].value_counts()
-
     top_Restaurant_type = train_data['rest_type'].value_counts()
-
     top_cuisines = train_data['cuisines'].value_counts()
-
     top_listed_in_type = train_data['listed_in_type'].value_counts()
 
+
+    form = SearchForm(request.POST or None)
+    result = train_data.copy()
+
+    if request.method == 'POST' and form.is_valid():
+        search_query = form.cleaned_data['search_query']
+        rate = int(form.cleaned_data['rate'])
+        online_order = int(form.cleaned_data.get('online_order'))
+        book_table = int(form.cleaned_data.get('book_table'))
+        listed_in_type = form.cleaned_data['listed_in_type']
+
+
+        if search_query:
+            result = result[result['location'] == search_query]
+
+        if rate:
+            result = result[(result['rate'] <= rate) & (result['rate'] > rate - 1)]
+
+        if online_order == 1:
+            result = result[result['online_order'] == 'Yes']
+        elif online_order == 2:
+            result = result[result['online_order'] == 'No']
+
+        if book_table == 1:
+            result = result[result['book_table'] == 'Yes']
+        elif book_table == 2:
+            result = result[result['book_table'] == 'No']
+
+
+        if listed_in_type == "Buffet":
+            result = result[result['listed_in_type'] == 'Buffet']
+        elif listed_in_type == "Delivery":
+            result = result[result['listed_in_type'] == 'Delivery']
+        elif listed_in_type == "Dine-out":
+            result = result[result['listed_in_type'] == 'Dine-out']
+        elif listed_in_type == "Desserts":
+            result = result[result['listed_in_type'] == 'Desserts']
+        elif listed_in_type == "Cafes":
+            result = result[result['listed_in_type'] == 'Cafes']
+        elif listed_in_type == "Drinks & nightlife":
+            result = result[result['listed_in_type'] == 'Drinks & nightlife']
+        elif listed_in_type == "Pubs and bars":
+            result = result[result['listed_in_type'] == 'Pubs and bars']
+        
+    col = train_data.columns.tolist()
+    result_dict = result.to_dict(orient='records') if result is not None else []
+
+    train_data = result
+    
     listed_in_type_distribution = train_data['listed_in_type'].value_counts()
-    df_listed_in_type_distribution = dict()
-    labels = []
-    data = []
 
-    for element, count in listed_in_type_distribution.items():
-        labels.append(element)
-        data.append(count)
+    fig4 = px.bar(listed_in_type_distribution,
+                x=listed_in_type_distribution.index, 
+                y=listed_in_type_distribution.values,
+                color=listed_in_type_distribution.index,
+                color_discrete_sequence= px.colors.qualitative.Set2,)
+    fig4.update_xaxes(title_text='Type')
+    fig4.update_yaxes(title_text='Data')
+    graph4 = fig4.to_html(full_html=False)
 
-    df_listed_in_type_distribution["labels"] = labels
-    df_listed_in_type_distribution["data"] = data
-
+    fig3 = px.bar(top_Restaurant_type, 
+                x=top_Restaurant_type.index, 
+                y=top_Restaurant_type.values,
+                color=top_Restaurant_type.index,
+                
+                color_discrete_sequence= px.colors.qualitative.Vivid,)
+    
+    graph3 = fig3.to_html(full_html=False)
 
     fig = px.scatter(train_data, x='cost2plates', y='rate', title='Scatter Plot of Cost vs. Rating')
     graph = fig.to_html(full_html=False)
@@ -106,9 +153,13 @@ def dashboard(request):
         'top_Restaurant_type':top_Restaurant_type.index[0],
         'top_cuisines':top_cuisines.index[0],
         'top_listed_in_type':top_listed_in_type.index[0],
-        'listed_in_type_distribution':df_listed_in_type_distribution,
         'graph':graph,
         'graph2':graph2,
+        'graph3':graph3,
+        'graph4':graph4,
+        'result': result_dict, 
+        'columns': col, 
+        'form': form,
 
 
     }
@@ -142,31 +193,52 @@ def filter_data(request):
     df = pd.read_csv("zomato_cleaned.csv")
 
     form = SearchForm(request.POST or None)
-    result = None
+    result = df.copy()
 
     if request.method == 'POST' and form.is_valid():
         search_query = form.cleaned_data['search_query']
-        
-        rate = form.cleaned_data['rate']
-        rate = int(rate)
+        rate = int(form.cleaned_data['rate'])
+        online_order = int(form.cleaned_data.get('online_order'))
+        book_table = int(form.cleaned_data.get('book_table'))
+        listed_in_type = form.cleaned_data['listed_in_type']
 
-        print(search_query)
-        print(rate)
-        
-        query_string = f''
-        if search_query and rate:
-            query_string = f'location == "{search_query}" and rate >= {rate} and rate < {rate + 1}'
-            result = df.query(query_string)
-        elif search_query:
-            query_string = f'location == "{search_query}"'
-            result = df.query(query_string)
-        elif rate:
-            query_string = f'rate <= {rate} and rate > {rate-1}'
-            result = df.query(query_string)
-        else:
-            # Handle the case where neither search_query nor rate is provided
-            result = df.copy()
 
+        if search_query:
+            result = result[result['location'] == search_query]
+
+        if rate:
+            result = result[(result['rate'] <= rate) & (result['rate'] > rate - 1)]
+
+        if online_order == 1:
+            result = result[result['online_order'] == 'Yes']
+        elif online_order == 2:
+            result = result[result['online_order'] == 'No']
+
+        if book_table == 1:
+            result = result[result['book_table'] == 'Yes']
+        elif book_table == 2:
+            result = result[result['book_table'] == 'No']
+
+
+        if listed_in_type == "Buffet":
+            result = result[result['listed_in_type'] == 'Buffet']
+        elif listed_in_type == "Delivery":
+            result = result[result['listed_in_type'] == 'Delivery']
+        elif listed_in_type == "Dine-out":
+            result = result[result['listed_in_type'] == 'Dine-out']
+        elif listed_in_type == "Desserts":
+            result = result[result['listed_in_type'] == 'Desserts']
+        elif listed_in_type == "Cafes":
+            result = result[result['listed_in_type'] == 'Cafes']
+        elif listed_in_type == "Drinks & nightlife":
+            result = result[result['listed_in_type'] == 'Drinks & nightlife']
+        elif listed_in_type == "Pubs and bars":
+            result = result[result['listed_in_type'] == 'Pubs and bars']
+        
+    else:
+        result = df.head()
+    # col = df.columns.tolist()
+    # result_dict = result.to_dict(orient='records')
     col = df.columns.tolist()
     result_dict = result.to_dict(orient='records') if result is not None else []
 

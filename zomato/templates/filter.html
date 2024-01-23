@@ -11,7 +11,13 @@
 
     <link rel="stylesheet" href="{% static 'navBar.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Add these lines in the <head> section of your HTML -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
     <style>
         
@@ -31,6 +37,7 @@
             margin: auto 50px;
             padding: 20px;
             display: flex;
+            flex-wrap: wrap;
             background-color: #c3bada;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -39,10 +46,21 @@
 
         .form-group {
             margin-bottom: 20px;
+            flex: 1; 
+            margin: 15px;
+            min-width: 100px;
+        }
+        @media (max-width: 768px) {
+        .form-group {
+            flex-basis: 100%;  /* Set the form group to take up full width */
         }
 
+
+
+}
+
         .result{
-            margin: auto 50px;
+            margin: 10px 50px;
             padding: 20px;
             display: flex;
             background-color: #c3bada;
@@ -65,14 +83,14 @@
         <a class="active" href="/filter_data">Filter</a>
         <a href="/about">About</a>
     </div>
-
+    
     <div class="heading">
-        <h1>Filter Dashboard</h1>
+        <h1>Filter Data</h1>
     </div>
 
     <div class = "filter-box">
         <div>
-            <form method="post" action="{% url 'filter_data' %}">
+            <form method="post" action="{% url 'filter_data' %}" style="display: flex; flex-wrap: wrap; align-items: center;">
                 {% csrf_token %}
                 <div class="form-group" style="margin-top: 15px;">
                     <label for="search">{{ form.search_query.label_tag }}</label><br>
@@ -86,11 +104,25 @@
                     {{ form.rate }}
                 </div>
 
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ form.online_order.label_tag }}
+                    {{ form.online_order }}
+                </div>
+                
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ form.book_table.label_tag }}
+                    {{ form.book_table }}
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ form.listed_in_type.label_tag }}
+                    {{ form.listed_in_type }}
+                </div>
 
 
-                
-                
-                <div class="col-md-1" style="margin-top: 45px;">
+
+        
+                <div class="col-md-1" style="flex:1; margin-top: 40px;">
                     <button type="submit" class="btn btn-primary" >Search</button>
                 </div>
             </form>
@@ -101,13 +133,19 @@
 
     <div class="result">
     
-        <table border="1">
-            <thead>
+        <table class="table align-middle mb-0">
+            <thead >
                 <tr>
-                    {% for row in columns %}
+                    <!-- {% for row in columns %}
                     <th>{{ row}}</th>
-                    {% endfor %}
-            
+                    {% endfor %} -->
+                    <th>Name</th>
+                    <th>Online Order</th>
+                    <th>Book Table</th>
+                    <th>Rate</th>
+                    <th>Location</th>
+                    <th>Type</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -117,18 +155,45 @@
                     <td>{{ row.online_order }}</td>
                     <td>{{ row.book_table }}</td>
                     <td>{{ row.rate }}</td>
-                    <td>{{ row.votes }}</td>
                     <td>{{ row.location }}</td>
-                    <td>{{ row.rest_type }}</td>
-                    <td>{{ row.cuisines }}</td>
-                    <td>{{ row.cost2plates }}</td>
                     <td>{{ row.listed_in_type }}</td>
-                    <td>{{ row.area }}</td>
+
+                   
+                    <td>
+                        <!-- Add a button to trigger the modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal{{ row.name|slugify }}">View Details</button>
+                    
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal{{ row.name|slugify }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel{{ row.name|slugify }}"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel{{ row.name }}">Details for {{ row.name }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>cost for 2 people:</strong> {{ row.cost2plates }}</p>
+                                        <p><strong>cuisines:</strong> {{ row.cuisines }}</p>
+                                        <p><strong>restaurant type:</strong> {{ row.rest_type }}</p>
+                                        <p><strong>area:</strong> {{ row.area }}</p>
+                                        <p><strong>votes:</strong> {{ row.votes }}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                   
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-    
+        
     
     </div>
     

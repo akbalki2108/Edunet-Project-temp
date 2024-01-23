@@ -7,8 +7,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-
-    <link rel="stylesheet" href="{% static 'navBar.css' %}">
     <style>
 
         
@@ -19,9 +17,6 @@
             background-color: #e0daed;
         }
 
-
-       
-
         .heading {
             margin: 20px auto;
             padding: 0 20px;
@@ -29,64 +24,6 @@
             display: flex;
         }
         
-        /* ---------------------------------------------------------------------------------- */
-        /**
-        * Carousal CSS 
-        */
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-250px * 5))}
-        }
-
-        .slider {
-            background: white;
-            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125);
-            height: 100px;
-            margin: auto;
-            overflow:hidden;
-            position: relative;
-            width: 90%;
-            text-align: center;
-        }
-
-        .slider::before,
-        .slider::after {
-            background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
-            content: "";
-            height: 100px;
-            position: absolute;
-            width: 200px;
-            z-index: 2;
-        }
-
-        .slider::after {
-            right: 0;
-            top: 0;
-            transform: rotateZ(180deg);
-        }
-
-        .slider::before {
-            left: 0;
-            top: 0;
-        }
-
-        .slider .slide-track {
-            animation: scroll 40s linear infinite;
-            display: flex;
-            width: calc(250px * 10);
-        }
-
-        .slider .slide {
-            height: 100px;
-            width: 250px;
-        }
-
-        .slide {
-            border-right: 1px solid black;
-        }
-
-        /* ---------------------------------------------------------------------------------- */
-
         .container {
             max-width: 1200px;
             margin: 20px auto;
@@ -118,10 +55,10 @@
         }
 
         .card-content {
-            padding: 10px;
+            padding: auto;
             text-align: center; 
             display: flex;
-            flex-direction: column; 
+            flex-direction: column;
             align-items: center;
         }
 
@@ -178,13 +115,18 @@
 
     </style>
 
+    <link rel="stylesheet" href="{% static 'navBar.css' %}">
+    <link rel="stylesheet" href="{% static 'filter.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <!-- Add this in the <head> section of your HTML file -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
-<body>
+<body style="background-color: #e0daed;">
 
     <div class="topnav">
         <a href="/">Home</a>
@@ -197,168 +139,137 @@
         <h1>Dashboard</h1>
     </div>
     
-    <div class="slider">
-        <div class="slide-track">
-            <div class="slide">
-                <h3>Total Restaurant</h3>
-                <p>{{value.tRestaurant}}</p>
-            </div>
-            <div class="slide">
-                <h3>Avg Rating</h3>
-                <p>{{value.average_rating}}</p>
-            </div>
-            <div class="slide">
-                <h3>Most Voted Restaurant</h3>
-                <p>{{value.most_voted_restaurant}}</p>
-            </div>
-            <div class="slide">
-                <h3>Avg Cost for Two People</h3>
-                <p>{{value.average_cost_for_two}}</p>
-            </div>
-            <div class="slide">
-                <h3>Location with Most Restaurant</h3>
-                <p>{{value.topRestaurant}}</p>
-            </div>
-            <div class="slide">
-                <h3>Online Service Available</h3>
-                <p>{{value.online_order_counts}}</p>
-            </div>
-            <div class="slide">
-                <h3>Dine In Available</h3>
-                <p>{{value.table_booking_counts}}</p>
-            </div>
-            <div class="slide">
-                <h3>Trending Restaurant Type</h3>
-                <p>{{value.top_Restaurant_type}}</p>
-            </div>
-            <div class="slide">
-                <h3>Popular Cuisines</h3>
-                <p>{{value.top_cuisines}}</p>
-            </div>
-            <div class="slide">
-                <h3>Popular Listing Type</h3>
-                <p>{{value.top_listed_in_type}}</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="chartsContainer">
-        <div class="card" id="chartCard1">
+    <div class="container">
+        <div class="card">
             <div class="card-content">
-                <h2>Restaurant Type Distribution</h2>
-                <canvas id="restaurantChart1"></canvas>
+                <h3>Total Restaurant</h3>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.tRestaurant}}</p>
             </div>
         </div>
     
-        <div class="card" id="chartCard2">
+        <div class="card">
             <div class="card-content">
-                <h2>Listed in Type Distribution</h2>
-                <canvas id="restaurantChart2"></canvas>
+                <h3>Avg Rating</h3>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.average_rating}}</p>
             </div>
         </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h3>Most Voted Restaurant</h3>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.most_voted_restaurant}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h3>Avg Cost for Two People</h3>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.average_cost_for_two}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h3>Location with Most Restaurant</h3>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.topRestaurant}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h3>Online Service Available</h3>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.online_order_counts}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h3>Dine In Available</h3>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.table_booking_counts}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h3>Trending Restaurant Type</h3>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.top_Restaurant_type}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h3>Popular Cuisines</h3>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.top_cuisines}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h3>Popular Listing Type</h3>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.top_listed_in_type}}</p>
+            </div>
+        </div>
+    
     </div>
 
-    <!-- labels: ["Delivery", "Dine-out", "Desserts", "Cafes", "Drinks & nightlife", "Buffet", "Pubs and bars"], -->
+    <div class="filter-box">
+        <div>
+            <form method="post" action="{% url 'dashboard' %}"
+                style="display: flex; flex-wrap: wrap; align-items: center;">
+                {% csrf_token %}
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="search">{{ value.form.search_query.label_tag }}</label><br>
+                    <input type="text" class="form-control" name="search_query" placeholder="Search"
+                        value="{{ form.search_query }}">
+                </div>
+    
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ value.form.rate.label_tag }}
+                    {{ value.form.rate }}
+                </div>
+    
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ value.form.online_order.label_tag }}
+                    {{ value.form.online_order }}
+                </div>
+    
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ value.form.book_table.label_tag }}
+                    {{ value.form.book_table }}
+                </div>
+    
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ value.form.listed_in_type.label_tag }}
+                    {{ value.form.listed_in_type }}
+                </div>
+    
+    
+    
+    
+                <div class="col-md-1" style="flex:1; margin-top: 40px;">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+    
+    
+        </div>
+    </div>
+    
+    <div id="plotly-chart-container" style="margin: 20px;">{{ value.graph|safe }}</div>
+    
+    <div id="plotly-chart-container" style="margin: 20px;">{{ value.graph2|safe }}</div>
 
-
-    <script>
-        
-        document.addEventListener('DOMContentLoaded', function () {
-
-            var restaurantTypeData = {
-                labels: ["Quick Bites", "Casual Dining", "others", "Cafe", "Delivery", "Dessert Parlor", "Takeaway, Delivery", "Casual Dining, Bar", "Bakery"],
-                datasets: [{
-                    label: 'Number of Restaurants',
-                    data: [19129, 10326, 9092, 3732, 2595, 2262, 2035, 1154, 1141],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)', // Red
-                        'rgba(54, 162, 235, 0.2)', // Blue
-                        'rgba(255, 206, 86, 0.2)', // Yellow
-                        'rgba(75, 192, 192, 0.2)', // Teal
-                        'rgba(153, 102, 255, 0.2)', // Purple
-                        'rgba(255, 159, 64, 0.2)', // Orange
-                        'rgba(200, 200, 200, 0.2)', // Light Gray
-                        'rgba(255, 0, 0, 0.2)', // Bright Red
-                        'rgba(0, 255, 0, 0.2)' // Bright Green
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(200, 200, 200, 1)',
-                        'rgba(255, 0, 0, 1)',
-                        'rgba(0, 255, 0, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
-
-            // Get the canvas element and create a bar chart
-            var ctx1 = document.getElementById('restaurantChart1').getContext('2d');
-            var myChart1 = new Chart(ctx1, {
-                type: 'bar',
-                data: restaurantTypeData,
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-
-            var labels = {{ value.listed_in_type_distribution.labels| safe}};
-            var data = {{ value.listed_in_type_distribution.data| safe}};
-
-            // Get the data for the second chart (replace this with your actual data)
-            var listedInTypeData = {
-                labels:  labels,
-                datasets: [{
-                    label: 'Number of Restaurants',
-                    data: data,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(200, 200, 200, 0.2)',
-                        'rgba(255, 0, 0, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(200, 200, 200, 1)',
-                        'rgba(255, 0, 0, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
-
-            // Get the canvas element and create another chart
-            var ctx2 = document.getElementById('restaurantChart2').getContext('2d');
-            var myChart2 = new Chart(ctx2, {
-                type: 'bar', // You can choose the chart type based on your data
-                data: listedInTypeData,
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-
-    <div id="plotly-chart-container" style="margin: auto 20px;">{{ value.graph|safe }}</div>
-    <div id="plotly-chart-container" style="margin: auto 20px;">{{ value.graph2|safe }}</div>
+    
 
     <!-- JavaScript to make the plot responsive -->
     <script>
@@ -366,6 +277,22 @@
             Plotly.Plots.resize(document.getElementById('plotly-chart-container'));
         });
     </script>
+
+    <div id="chartsContainer">
+        <div class="card" id="chartCard1">
+            <div class="card-content">
+                <h2>Restaurant Type Distribution</h2>
+                {{ value.graph3|safe }}
+            </div>
+        </div>
+    
+        <div class="card" id="chartCard2">
+            <div class="card-content">
+                <h2>Listed in Type Distribution</h2>
+                {{ value.graph4|safe }}
+            </div>
+        </div>
+    </div>
 
 </body>
 
