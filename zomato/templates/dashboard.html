@@ -1,0 +1,364 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    
+    <style>
+
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Open Sans", sans-serif;
+            background: #0c0b09;
+            color: #fff;
+        }
+
+
+        .heading {
+            margin: 20px auto;
+            padding: 0 20px;
+            margin-left: 35px;
+            display: flex;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            margin-top: 150px;
+            padding: 0 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+           
+        }
+
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            width: calc(20% - 30px);
+            /* Adjusted width to display 5 cards in a row with margin */
+            box-sizing: border-box;
+            background-color: #d9ba85;
+        }
+
+        .card:not(:nth-child(5n)) {/* Adjusted 5 card*/
+            margin-right: 20px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 5px;
+            padding-top: 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+        }
+
+
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        @media (max-width: 767px) {
+            .card {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+
+        #chartsContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        #chartCard3,
+        #chartCard4 {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            width: calc(50% - 40px); /* Adjusted width for two charts in a row with margin */
+            box-sizing: border-box;
+            max-width: 600px; /* Adjust the maximum width as needed */
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #chartCard3:hover,
+        #chartCard4:hover {
+            transform: scale(1.05);
+        }
+
+        /* Media query for small screens */
+        @media (max-width: 768px) {
+            #chartsContainer {
+                flex-direction: column; /* Change to column layout for small screens */
+            }
+
+            #chartCard3,
+            #chartCard4 {
+                width: 100%; /* Full width for each chart on small screens */
+            }
+        }
+
+        .btn-primary {
+            padding: 10px 24px; /* Adjust as needed */
+            font-size: 18px; /* Adjust as needed */
+            width: 100px;
+        }
+    </style>
+    
+    <!-- Favicons -->
+    <link href="../static/assets/css/style.css">
+    <link href="../static/assets/img/favicon.png" rel="icon">
+    <link href="../static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+    
+    <!-- Vendor CSS Files -->
+    <link href="../static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="../static/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="../static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="../static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="../static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    
+    <!-- Template Main CSS File -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <script src="../static/assets/js/main.js"></script>
+
+
+    <!-- <link rel="stylesheet" href="{% static 'navBar.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'filter.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Add this in the <head> section of your HTML file -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    
+</head>
+<body style="background-color: #140e0e;">
+    <!-- <div class="topnav">
+        <a href="/">Home</a>
+        <a class="active" href="/dashboard">Dashboard</a>
+        <a href="/filter_data">Filter</a>
+        <a href="/about">About</a>
+    </div> -->
+
+    <header id="header" class="d-flex align-items-center">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+    
+          <h1 class="logo me-auto me-lg-0"><a href="/">Restaurantly</a></h1>
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+    
+          <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+              <li><a class="nav-link scrollto" href="/">Home</a></li>
+              <li><a class="nav-link scrollto" href="#about">About</a></li>
+              <li><a class="nav-link scrollto active" href="/dashboard">Insights</a></li>
+              <li><a class="nav-link scrollto" href="/filter_data">Search</a></li>
+              <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+          </nav>
+         
+    
+        </div>
+      </header>
+      <!-- End Header -->
+
+
+    <!-- <div class="heading">
+        <h1>Dashboard</h1>
+    </div> -->
+    
+    <div class="container" style="margin-block: 20px;">
+        <div class="card">
+            <div class="card-content">
+                <h4>Total Restaurants</h4>
+                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <p>{{value.tRestaurant}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h4 style="margin: auto 30px;">Average Rating</h4>
+                <img src="{% static 'Rating.png' %}" alt="" width="100px">
+                <p>{{value.average_rating}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h4>Most Voted Restaurant</h4>
+                <img src="{% static 'like.png' %}" alt="" width="70px">
+                <p>{{value.most_voted_restaurant}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h4>Avg Cost for Two People</h4>
+                <img src="{% static 'cost2plates.png' %}" alt="" width="70px">
+                <p>{{value.average_cost_for_two}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h4>Location with Most Restaurant</h4>
+                <img src="{% static 'location.png' %}" alt="" width="70px">
+                <p>{{value.topRestaurant}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h4>Online Orders Available</h4>
+                <img src="{% static 'order-food.png' %}" alt="" width="70px">
+                <p>{{value.online_order_counts}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h4>Dine In Available</h4>
+                <img src="{% static 'booking.png' %}" alt="" width="70px">
+                <p>{{value.table_booking_counts}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h4>Trending Restaurant Type</h4>
+                <img src="{% static 'food-drink.png' %}" alt="" width="70px">
+                <p>{{value.top_Restaurant_type}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h4 style="margin: auto 30px;">Popular Cuisines</h4>
+                <img src="{% static 'food.png' %}" alt="" width="70px">
+                <p>{{value.top_cuisines}}</p>
+            </div>
+        </div>
+    
+        <div class="card">
+            <div class="card-content">
+                <h4>Popular Listing Type</h4>
+                <img src="{% static 'wishlist.png' %}" alt="" width="70px">
+                <p>{{value.top_listed_in_type}}</p>
+            </div>
+        </div>
+    
+    </div>
+
+    <div class="filter-box">
+        <div>
+            <form method="post" action="{% url 'dashboard' %}"
+                style="display: flex; flex-wrap: wrap; align-items: center;">
+                {% csrf_token %}
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="search">{{ value.form.search_query.label_tag }}</label><br>
+                    <input type="text" class="form-control" name="search_query" placeholder="Search"
+                        value="{{ form.search_query }}">
+                </div>
+    
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ value.form.rate.label_tag }}
+                    {{ value.form.rate }}
+                </div>
+    
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ value.form.online_order.label_tag }}
+                    {{ value.form.online_order }}
+                </div>
+    
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ value.form.book_table.label_tag }}
+                    {{ value.form.book_table }}
+                </div>
+    
+                <div class="form-group" style="margin-top: 15px;">
+                    {{ value.form.listed_in_type.label_tag }}
+                    {{ value.form.listed_in_type }}
+                </div>
+    
+    
+    
+    
+                <div class="col-md-1 mt-4" style="flex:1; margin-top: 40px;">
+                    <button type="submit" class="btn btn-primary" style="background-color: #140e0e;">Apply Filter</button>
+                </div>
+            </form>
+    
+    
+        </div>
+    </div>
+    
+    
+    <div id="plotly-chart-container" style="margin: 20px;">{{ value.graph|safe }}</div>
+    
+    <div id="plotly-chart-container" style="margin: 20px;">{{ value.graph2|safe }}</div>
+
+    <!-- JavaScript to make the plot responsive -->
+    <script>
+        window.addEventListener('resize', function () {
+            Plotly.Plots.resize(document.getElementById('plotly-chart-container'));
+        });
+    </script>
+
+    <div id="chartsContainer">
+        <div class="card" id="chartCard3">
+            <div class="card-content">
+                <h2>Restaurant Type Distribution</h2>
+                {{ value.graph3|safe }}
+            </div>
+        </div>
+    
+        <div class="card" id="chartCard4">
+            <div class="card-content">
+                <h2>Listed in Type Distribution</h2>
+                {{ value.graph4|safe }}
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+    

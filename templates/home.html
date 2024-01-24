@@ -1,0 +1,115 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Information</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0daed;
+        }
+
+        .center-div {
+            text-align: center;
+        }
+
+        .center-div img {
+            display: inline-block;
+            margin: 20px;
+            max-width: 100%; /* Ensures the image doesn't exceed its original size */
+            height: auto;    /* Maintains the aspect ratio */
+            width: 50%;       /* Adjust the width as needed */
+        }
+
+        .heading {
+            margin: 20px auto;
+            padding: 0 20px;
+            margin-left: 35px;
+            display: flex;
+        }
+
+        .para{
+            margin: 20px auto;
+            padding: 0 20px;
+            margin-left: 35px;
+            display: flex;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <link rel="stylesheet" href="{% static 'navBar.css' %}">
+
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/filter_data">Filter</a>
+        <a href="/about">About</a>
+    </div>
+    
+    
+    
+    <div class="heading">
+        <h2>Abstract</h2>
+    </div>
+    <p class="para">
+        In an era where the restaurant industry is marked by fierce competition and evolving consumer preferences, this project
+        endeavors to extract valuable insights from Zomato’s database through a meticulous analysis. Led by Sumedh
+        Chinchamalatpure and his adept team, including Aditya Balki, Pranav Pandit, Kirtesh Maskey, and Ishwari Joshi, our
+        exploration encompasses crucial aspects such as sentiment analysis, correlation studies, and visualizations. By
+        dissecting the dataset, we aim to uncover trends, correlations, and patterns that can inform stakeholders about the
+        factors influencing restaurant success, thus contributing to strategic decision-making. This project embodies a
+        proactive approach to harnessing data for the benefit of the restaurant industry in an ever-changing market landscape.
+    </p>
+
+    <div class="center-div">
+        <img src="{% static 'Data to Dish.png' %}" alt="My image">
+    </div>
+
+    <div class="heading">
+        <h2>Problem Statement</h2>
+    </div>
+    <p class="para">
+        Deciphering meaningful insights from extensive datasets, like Zomato's, presents a challenge in the restaurant industry.
+        This project aims to tackle this challenge by conducting a thorough analysis of Zomato's database, extracting key
+        patterns, correlations, and trends. Our objective is to provide actionable insights for stakeholders, enabling strategic
+        decision-making amidst the dynamic landscape of the restaurant business.
+    </p>
+
+    <div class="heading">
+        <h2>Innovation/Novelty in Project</h2>
+    </div>
+    <p class="para">
+        This project stands out through its innovative approach in combining traditional data analysis techniques with advanced
+        methodologies to extract insights from Zomato's database. The integration of sentiment analysis, correlation studies,
+        and visualization techniques provides a holistic understanding of the restaurant industry landscape. Furthermore, our
+        team's diverse skill set and collaborative efforts bring a unique perspective, ensuring a comprehensive exploration of
+        the dataset. This project not only uncovers trends but also contributes novel insights that go beyond conventional
+        analyses, offering a valuable resource for strategic decision-makers in the ever-evolving restaurant ecosystem.
+    </p>
+
+
+
+
+
+
+</body>
+
+</html>
+
+
+<!-- Hey I am {{data_dict.fname}} {{data_dict.lname}}
+
+{% for i in data_dict.num_list %}
+{{i}} <br>
+{% endfor %} -->
