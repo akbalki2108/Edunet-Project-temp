@@ -55,8 +55,9 @@
         }
 
         .card-content {
-            padding: auto;
-            text-align: center; 
+            padding: 5px;
+            padding-top: 10px;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -79,7 +80,7 @@
             }
         }
 
-       #chartsContainer {
+        #chartsContainer {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -106,11 +107,22 @@
             transform: scale(1.05);
         }
 
-        #restaurantChart1,
-        #restaurantChart2 {
-            width: 100%;
-            max-height: 400px; /* Adjust the maximum height as needed */
-            margin-top: 10px;
+        /* Media query for small screens */
+        @media (max-width: 768px) {
+            #chartsContainer {
+                flex-direction: column; /* Change to column layout for small screens */
+            }
+
+            #chartCard1,
+            #chartCard2 {
+                width: 100%; /* Full width for each chart on small screens */
+            }
+        }
+
+        .btn-primary {
+            padding: 10px 24px; /* Adjust as needed */
+            font-size: 18px; /* Adjust as needed */
+            width: 100px;
         }
 
     </style>
@@ -142,7 +154,7 @@
     <div class="container">
         <div class="card">
             <div class="card-content">
-                <h3>Total Restaurant</h3>
+                <h4>Total Restaurants</h4>
                 <img src="{% static 'restaurant.png' %}" alt="" width="70px">
                 <p>{{value.tRestaurant}}</p>
             </div>
@@ -150,72 +162,72 @@
     
         <div class="card">
             <div class="card-content">
-                <h3>Avg Rating</h3>
-                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <h4 style="margin: auto 30px;">Average Rating</h4>
+                <img src="{% static 'Rating.png' %}" alt="" width="100px">
                 <p>{{value.average_rating}}</p>
             </div>
         </div>
     
         <div class="card">
             <div class="card-content">
-                <h3>Most Voted Restaurant</h3>
-                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <h4>Most Voted Restaurant</h4>
+                <img src="{% static 'like.png' %}" alt="" width="70px">
                 <p>{{value.most_voted_restaurant}}</p>
             </div>
         </div>
     
         <div class="card">
             <div class="card-content">
-                <h3>Avg Cost for Two People</h3>
-                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <h4>Avg Cost for Two People</h4>
+                <img src="{% static 'cost2plates.png' %}" alt="" width="70px">
                 <p>{{value.average_cost_for_two}}</p>
             </div>
         </div>
     
         <div class="card">
             <div class="card-content">
-                <h3>Location with Most Restaurant</h3>
-                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <h4>Location with Most Restaurant</h4>
+                <img src="{% static 'location.png' %}" alt="" width="70px">
                 <p>{{value.topRestaurant}}</p>
             </div>
         </div>
     
         <div class="card">
             <div class="card-content">
-                <h3>Online Service Available</h3>
-                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <h4>Online Service Available</h4>
+                <img src="{% static 'order-food.png' %}" alt="" width="70px">
                 <p>{{value.online_order_counts}}</p>
             </div>
         </div>
     
         <div class="card">
             <div class="card-content">
-                <h3>Dine In Available</h3>
-                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <h4>Dine In Available</h4>
+                <img src="{% static 'booking.png' %}" alt="" width="70px">
                 <p>{{value.table_booking_counts}}</p>
             </div>
         </div>
     
         <div class="card">
             <div class="card-content">
-                <h3>Trending Restaurant Type</h3>
-                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <h4>Trending Restaurant Type</h4>
+                <img src="{% static 'food-drink.png' %}" alt="" width="70px">
                 <p>{{value.top_Restaurant_type}}</p>
             </div>
         </div>
     
         <div class="card">
             <div class="card-content">
-                <h3>Popular Cuisines</h3>
-                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <h4 style="margin: auto 30px;">Popular Cuisines</h4>
+                <img src="{% static 'food.png' %}" alt="" width="70px">
                 <p>{{value.top_cuisines}}</p>
             </div>
         </div>
     
         <div class="card">
             <div class="card-content">
-                <h3>Popular Listing Type</h3>
-                <img src="{% static 'restaurant.png' %}" alt="" width="70px">
+                <h4>Popular Listing Type</h4>
+                <img src="{% static 'wishlist.png' %}" alt="" width="70px">
                 <p>{{value.top_listed_in_type}}</p>
             </div>
         </div>
@@ -256,14 +268,15 @@
     
     
     
-                <div class="col-md-1" style="flex:1; margin-top: 40px;">
-                    <button type="submit" class="btn btn-primary">Search</button>
+                <div class="col-md-1 mt-4" style="flex:1; margin-top: 40px;">
+                    <button type="submit" class="btn btn-primary">Apply Filter</button>
                 </div>
             </form>
     
     
         </div>
     </div>
+    
     
     <div id="plotly-chart-container" style="margin: 20px;">{{ value.graph|safe }}</div>
     
