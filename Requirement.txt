@@ -1,0 +1,2 @@
+pip insatll django-import-export
+pip install folium

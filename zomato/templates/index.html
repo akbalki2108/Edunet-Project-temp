@@ -1,0 +1,317 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Restaurantly Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../static/assets/css/style.css">
+  <link href="../static/assets/img/favicon.png" rel="icon">
+  <link href="../static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="../static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <script src="../static/assets/js/main.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+      <h1 class="logo me-auto me-lg-0"><a href="index.html">Restaurantly</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="/index">Home</a></li>
+          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li><a class="nav-link scrollto" href="/dashboard">Insights</a></li>
+          <li><a class="nav-link scrollto" href="/filter_data">Search</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+     
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1>Welcome to <span>Restaurantly</span></h1>
+          <h2> where culinary delights meet personalized perfection, curating an exquisite dining experience tailored just for you.</h2>
+
+        </div>
+        <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in" data-aos-delay="200">
+          <a href="https://www.youtube.com/watch?v=GlrxcuEDyF8" class="glightbox play-btn"></a>
+        </div>
+
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+            <div class="about-img">
+              <img src="../static/assets/img/Data to Dish.png" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+            <h3>About</h3>
+            <p class="fst-italic" style="text-align: justify;">
+              In an era where the restaurant industry is marked by fierce competition and evolving consumer preferences, this project endeavors to extract valuable insights from Zomato’s database through a meticulous analysis. Led by Sumedh Chinchamalatpure and his adept team, including Aditya Balki, Pranav Pandit, Kirtesh Maskey, and Ishwari Joshi, our exploration encompasses crucial aspects such as sentiment analysis, correlation studies, and visualizations. By dissecting the dataset, we aim to uncover trends, correlations, and patterns that can inform stakeholders about the factors influencing restaurant success, thus contributing to strategic decision-making. This project embodies a proactive approach to harnessing data for the benefit of the restaurant industry in an ever-changing market landscape.
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> At the heart of our Restaurant Recommendation System is a mission to simplify dining decisions for our users.</li>
+              <li><i class="bi bi-check-circle"></i> We strive to transform the overwhelming task of choosing a restaurant into a delightful and personalized experience, enhancing the joy of dining out.</li>
+              <li><i class="bi bi-check-circle"></i> Powered by advanced data analytics, our system distills insights from vast datasets to present users with informed recommendations.</li>
+            </ul>
+            <p style="text-align: justify;" >
+              We leverage innovative technologies to ensure accuracy and relevance, making dining decisions not just convenient but also tailored to individual preferences. 
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Problem Statement</h2>
+        </div>
+        <p style="text-align: justify;">
+          Deciphering meaningful insights from extensive datasets, like Zomato's, presents a challenge in the restaurant industry. This project aims to tackle this challenge by conducting a thorough analysis of Zomato's database, extracting key patterns, correlations, and trends. Our objective is to provide actionable insights for stakeholders, enabling strategic decision-making amidst the dynamic landscape of the restaurant business.
+        </p>
+        
+    </section><!-- End Why Us Section -->
+
+    <!-- ======= Menu Section ======= -->
+    <section id="menu" class="menu section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+         
+          <p>Check Our Tasty Insights about Restaurants</p>
+        </div>
+<div class="heading">
+  
+</div>
+
+<div class="slider-container">
+<div class="slider">
+  <div class="slide-track">
+      <div class="slide">
+          <h3>Total Restaurant</h3>
+          <p>51466</p>
+      </div>
+      <div class="slide">
+          <h3>Avg Rating</h3>
+          <p>3.7</p>
+      </div>
+      <div class="slide">
+          <h3>Most Voted Restaurant</h3>
+          <p>Byg Brewski Brewing Company</p>
+      </div>
+      <div class="slide">
+          <h3>Avg Cost for Two People</h3>
+          <p>558.08</p>
+      </div>
+      <div class="slide">
+          <h3>Location with Most Restaurant</h3>
+          <p>BTM</p>
+      </div>
+      <div class="slide">
+          <h3>Online Service Available</h3>
+          <p>30311</p>
+      </div>
+      <div class="slide">
+          <h3>Dine In Available</h3>
+          <p>6449</p>
+      </div>
+      <div class="slide">
+          <h3>Trending Restaurant Type</h3>
+          <p>Quick Bytes</p>
+      </div>
+      <div class="slide">
+          <h3>Popular Cuisines</h3>
+          <p>North Indian</p>
+      </div>
+      <div class="slide">
+          <h3>Popular Listing Type</h3>
+          <p>Delivery</p>
+      </div>
+  </div>
+</div>
+</div>
+        
+    </section><!-- End Menu Section -->
+
+    <!-- ======= Specials Section ======= -->
+    <section id="specials" class="specials">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Specials</h2>
+          <p>Check Our Specials</p>
+        </div>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-3">
+            <ul class="nav nav-tabs flex-column">
+              <li class="nav-item">
+                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Top 10 restaurant types</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Cost for 2 persons & Ratings</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Most liked cuisines</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Top Restaurant Chains</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Heat Map</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="tab-content">
+              <div class="tab-pane active show" id="tab-1">
+                <div class="row">
+                  <div class="col-lg-4 text-center order-1 order-lg-2" style="width: 100%;">
+                    <img src="../static/assets/img/top rest.png" alt="" class="img-fluid"> 
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab-2">
+                <div class="row">
+                 
+                  <div class="col-lg-4 text-center order-1 order-lg-2" style="width: 100%;">
+                    <img src="../static/assets/img/scatter.png" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab-3">
+                <div class="row">
+        
+                  <div class="col-lg-4 text-center order-1 order-lg-2" style="width: 100%;">
+                    <img src="../static/assets/img/word cloud.png" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab-4">
+                <div class="row">
+                  
+                  <div class="col-lg-4 text-center order-1 order-lg-2" style="width: 100%;">
+                    <img src="../static/assets/img/chains.png" alt="" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="tab-5">
+                <div class="row">
+                    <div class="col-lg-8 details order-2 order-lg-1">
+                        
+                        
+                        <p>Heatmap</p>
+                    </div>
+                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                        <!-- Replace the image with the iframe for the Folium map -->
+                        <iframe src="heatmap_map.html" width="100%" height="300px" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+            
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Specials Section -->
+
+   
+
+    <!-- ======= Contact Section ======= -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Restaurantly</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+
+        Designed by <a>iam.sumedh</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../static/assets/vendor/aos/aos.js"></script>
+  <script src="../static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../static/assets/vendor/php-email-form/validate.js"></script>
+  <script src="../static/assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../static/assets/js/main.js"></script>
+
+</body>
+
+</html>

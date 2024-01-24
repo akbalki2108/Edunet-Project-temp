@@ -246,19 +246,6 @@ def filter_data(request):
     return render(request, 'filter.html', context)
 
 
-# form = SearchForm(request.POST or None)
-#     result = None
-
-#     if request.method == 'POST' and form.is_valid():
-#         search_query = form.cleaned_data['search_query']
-#         # Apply the search criteria to your DataFrame
-        
-    
-#     result = df.query('location == "BTM"')
-#     col = df.columns.tolist()
-#     result_dict = result.to_dict(orient='records')
-#     context = {'result': result_dict,'columns':col}
-
-#     return render(request,'filter.html',context)
-
+def index(request):
+    return render(request, 'index.html')
 
