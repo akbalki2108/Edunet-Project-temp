@@ -58,7 +58,7 @@
         }
         .filter-box{
             margin: auto 50px;
-            margin-top: 200px;
+            margin-top: 50px;
             padding: 20px;
             display: flex;
             flex-wrap: wrap;
@@ -135,34 +135,27 @@
 
 <body>
 
-    <!-- <div class="topnav">
-        <a href="/">Home</a>
-        <a href="/dashboard">Dashboard</a>
-        <a class="active" href="/filter_data">Filter</a>
-        <a href="/about">About</a>
-    </div> -->
-
-    <header id="header" class="fixed-top d-flex align-items-cente">
+    <header id="header" class="d-flex align-items-cente">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
     
             <h1 class="logo me-auto me-lg-0"><a href="index.html">Restaurantly</a></h1>
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a class="nav-link scrollto" href="/index">Home</a></li>
-                    <li><a class="nav-link scrollto" href="/index#about">About</a></li>
+                    <li><a class="nav-link scrollto" href="/">Home</a></li>
+                    <li><a class="nav-link scrollto" href="/#about">About</a></li>
                     <li><a class="nav-link scrollto" href="/dashboard">Insights</a></li>
                     <li><a class="nav-link scrollto active" href="/filter_data">Search</a></li>
-                    <li><a class="nav-link scrollto" href="/index#contact">Contact</a></li>
+                    <li><a class="nav-link scrollto" href="/contact">Contact</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
         </div>
-    </header><!-- End Header -->
+    </header>
 
-    
-    <!-- <div class="heading">
-        <h1>Filter Data</h1>
-    </div> -->
+    <p style="color:white; font-size: 1.35rem; text-align: center;margin-block: 2.5em;">
+        From Filters to Feasts: Your Ideal Restaurant Awaits, One Filter Away !
+    </p>
+
 
     <div class = "filter-box">
         <div>
@@ -199,7 +192,7 @@
 
         
                 <div class="col-md-1 mt-4" style="flex:1; margin-top: 40px;">
-                    <button type="submit" class="btn btn-primary">Apply Filter</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #000;">Apply Filter</button>
                 </div>
             </form>
 
@@ -208,7 +201,7 @@
     </div>
 
     <div class="result">
-    
+        {% if entries_exist %}
         <table class="table align-middle mb-0">
             <thead >
                 <tr>
@@ -237,7 +230,7 @@
                    
                     <td>
                         <!-- Add a button to trigger the modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal{{ row.name|slugify }}">View Details</button>
+                        <button type="button"style="background-color: #000;" class="btn btn-primary" data-toggle="modal" data-target="#modal{{ row.name|slugify }}">View Details</button>
                     
                         <!-- Modal -->
                         <div class="modal fade" id="modal{{ row.name|slugify }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel{{ row.name|slugify }}"
@@ -258,7 +251,7 @@
                                         <p><strong>votes:</strong> {{ row.votes }}</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="background-color: #000;">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -269,6 +262,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p>No results found.</p>
+        {% endif %}
         
     
     </div>

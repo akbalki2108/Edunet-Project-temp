@@ -54,10 +54,13 @@ def dashboard(request):
     top_cuisines = train_data['cuisines'].value_counts()
     top_listed_in_type = train_data['listed_in_type'].value_counts()
 
+    top_locations = train_data['location'].value_counts().head(6)
 
     form = SearchForm(request.POST or None)
     result = train_data.copy()
 
+    location = "Banglore"
+    location_in = train_data["name"].head()
     if request.method == 'POST' and form.is_valid():
         search_query = form.cleaned_data['search_query']
         rate = int(form.cleaned_data['rate'])
@@ -68,6 +71,8 @@ def dashboard(request):
 
         if search_query:
             result = result[result['location'] == search_query]
+            location = search_query
+            location_in = result["name"].head()
 
         if rate:
             result = result[(result['rate'] <= rate) & (result['rate'] > rate - 1)]
@@ -102,47 +107,60 @@ def dashboard(request):
     result_dict = result.to_dict(orient='records') if result is not None else []
 
     train_data = result
-    
-    listed_in_type_distribution = train_data['listed_in_type'].value_counts()
 
-    fig4 = px.bar(listed_in_type_distribution,
-                x=listed_in_type_distribution.index, 
-                y=listed_in_type_distribution.values,
-                color=listed_in_type_distribution.index,
-                color_discrete_sequence= px.colors.qualitative.Set2,)
-    fig4.update_xaxes(title_text='Type')
-    fig4.update_yaxes(title_text='Data')
-    graph4 = fig4.to_html(full_html=False)
+    if train_data.shape[0] != 0:
+        
+        listed_in_type_distribution = train_data['listed_in_type'].value_counts()
 
-    fig3 = px.bar(top_Restaurant_type, 
-                x=top_Restaurant_type.index, 
-                y=top_Restaurant_type.values,
-                color=top_Restaurant_type.index,
-                
-                color_discrete_sequence= px.colors.qualitative.Vivid,)
-    
-    graph3 = fig3.to_html(full_html=False)
+        fig4 = px.bar(listed_in_type_distribution,
+                    x=listed_in_type_distribution.index, 
+                    y=listed_in_type_distribution.values,
+                    color=listed_in_type_distribution.index,
+                    color_discrete_sequence= px.colors.qualitative.Set2,)
+        fig4.update_xaxes(title_text='Type')
+        fig4.update_yaxes(title_text='Data')
+        graph4 = fig4.to_html(full_html=False)
 
-    fig = px.scatter(train_data, x='cost2plates', y='rate', title='Scatter Plot of Cost vs. Rating')
-    graph = fig.to_html(full_html=False)
+        fig3 = px.bar(top_Restaurant_type, 
+                    x=top_Restaurant_type.index, 
+                    y=top_Restaurant_type.values,
+                    color=top_Restaurant_type.index,
+                    
+                    color_discrete_sequence= px.colors.qualitative.Vivid,)
+        
+        graph3 = fig3.to_html(full_html=False)
 
-    # fig2 = px.scatter(train_data, x='location', y='rate', title='Average Rating by Location')
-    # graph2 = fig2.to_html(full_html=False)
+        fig = px.scatter(train_data, x='cost2plates', y='rate', title='Scatter Plot of Cost vs. Rating')
+        graph = fig.to_html(full_html=False)
 
-    fig2 = px.bar(train_data, 
-              x='location', 
-              y='rate', 
-              title='Average Rating by Location', 
-              labels={'rate': 'Average Rating'},
-              color='location',
-              color_discrete_sequence= px.colors.qualitative.Dark24,
-              opacity=1,)
-    
+        # fig2 = px.scatter(train_data, x='location', y='rate', title='Average Rating by Location')
+        # graph2 = fig2.to_html(full_html=False)
 
-    # Convert the plot to HTML
-    graph2 = fig2.to_html(full_html=False)
+        fig2 = px.bar(train_data, 
+                x='location', 
+                y='rate', 
+                title='Average Rating by Location', 
+                labels={'rate': 'Average Rating'},
+                color='location',
+                color_discrete_sequence= px.colors.qualitative.Dark24,
+                opacity=1,)
+        
+
+        # Convert the plot to HTML
+        graph2 = fig2.to_html(full_html=False)
+
+        top_cuisines_areawise = train_data['cuisines'].value_counts().head(5)
+    else:
+        listed_in_type_distribution = "None"
+        top_cuisines_areawise = "None"
+        graph =0
+        graph2 =0
+        graph3 =0
+        graph4 =0
+
 
     value={
+        'location': location,
         'tRestaurant' : tRestaurant,
         'average_rating': average_rating,
         'most_voted_restaurant':most_voted_restaurant,
@@ -160,8 +178,9 @@ def dashboard(request):
         'result': result_dict, 
         'columns': col, 
         'form': form,
-
-
+        'top_locations':top_locations,
+        'top_cuisines_areawise':top_cuisines_areawise,
+        'location_in':location_in,
     }
     return  render(request,'dashboard.html',{'value':value})
 
@@ -236,16 +255,52 @@ def filter_data(request):
             result = result[result['listed_in_type'] == 'Pubs and bars']
         
     else:
-        result = df.head()
+        result = df.head(20)
     # col = df.columns.tolist()
     # result_dict = result.to_dict(orient='records')
     col = df.columns.tolist()
     result_dict = result.to_dict(orient='records') if result is not None else []
 
     context = {'result': result_dict, 'columns': col, 'form': form}
+
+    entries_exist = len(result_dict) > 0
+    context['entries_exist'] = entries_exist
+
     return render(request, 'filter.html', context)
 
 
 def index(request):
-    return render(request, 'index.html')
+    train_data = pd.read_csv("zomato_cleaned.csv")
+
+    tRestaurant = train_data.shape[0]
+    average_rating = train_data['rate'].mean()
+    average_rating = round(average_rating, 2)
+    most_voted_restaurant = train_data.loc[train_data['votes'].idxmax()]['name']
+    average_cost_for_two = train_data['cost2plates'].mean()
+    average_cost_for_two = round(average_cost_for_two, 2)
+    area_distribution = train_data['area'].value_counts()
+    online_order_counts = train_data['online_order'].value_counts()
+    table_booking_counts = train_data['book_table'].value_counts()
+    top_Restaurant_type = train_data['rest_type'].value_counts()
+    top_cuisines = train_data['cuisines'].value_counts()
+    top_listed_in_type = train_data['listed_in_type'].value_counts()
+
+    value={
+        'tRestaurant' : tRestaurant,
+        'average_rating': average_rating,
+        'most_voted_restaurant':most_voted_restaurant,
+        'average_cost_for_two':average_cost_for_two,
+        'topRestaurant':area_distribution.index[0],
+        'online_order_counts':online_order_counts["Yes"],
+        'table_booking_counts':table_booking_counts["Yes"],
+        'top_Restaurant_type':top_Restaurant_type.index[0],
+        'top_cuisines':top_cuisines.index[0],
+        'top_listed_in_type':top_listed_in_type.index[0],
+    }
+
+    return render(request, 'index.html',{'value':value})
+
+
+def contact(request):
+    return render(request, 'contact.html')
 

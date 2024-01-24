@@ -1,5 +1,6 @@
 .filter-box {
-    margin:  50px;
+    margin: auto 50px;
+    margin-top: 50px;
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
@@ -7,6 +8,7 @@
     border: 1px solid #000;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #000;
 }
 
 .form-group {
